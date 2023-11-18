@@ -1,0 +1,11 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: springboot-demo
+  data:
+    mongodb:
+      uri: mongodb://ck:ck123@localhost:27017/order??authSource=admin
