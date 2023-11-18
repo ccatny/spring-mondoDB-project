@@ -24,12 +24,12 @@ public class ObjectServiceImpl implements IObjectService {
     @Resource
     private MongoTemplate mongoTemplate;
 
-    public String saveObject(Object object) {
+    public String createObject(Object object) {
         if (object == null) {
-            throw new ServiceException("object is empty");
+            throw new ServiceException(Status.OBJECT_EMPTY);
         }
         if (object.getId() == null) {
-            throw new ServiceException("Object id is empty");
+            throw new ServiceException(Status.OBJECT_ID_EMPTY);
         }
         if (getObjectById(object.getId()) != null) {
             throw new ServiceException(String.format("Object with id %s exist", object.getId()));
@@ -37,7 +37,7 @@ public class ObjectServiceImpl implements IObjectService {
         mongoTemplate.insert(object);
         Gson gson = new Gson();
         logger.info("ObjectService : saveObject -->: object=[{}]", gson.toJson(object));
-        return "Insert object successfully";
+        return Status.INSERT_SUCCESSFULLY;
     }
 
     @Override
@@ -59,10 +59,10 @@ public class ObjectServiceImpl implements IObjectService {
     @Override
     public Boolean updateObject(Object object) {
         if (object == null) {
-            throw new ServiceException("object is empty");
+            throw new ServiceException(Status.OBJECT_EMPTY);
         }
         if (object.getId() == null) {
-            throw new ServiceException("Object id is empty");
+            throw new ServiceException(Status.OBJECT_ID_EMPTY);
         }
         Query query = new Query(Criteria.where("id").is(object.getId()));
         Update update = new Update()

@@ -4,7 +4,7 @@ import com.example.demo.model.entity.Object;
 
 public interface IObjectService {
 
-    String saveObject(Object object);
+    String createObject(Object object);
 
     Object getObjectById(int id);
 
