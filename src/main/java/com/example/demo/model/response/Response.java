@@ -55,9 +55,9 @@ public class Response<T> implements Serializable {
         return response;
     }
 
-    public static <T> Response<T> success(T data)
+    public static <T> Response<T> success(T data, String message)
     {
-        return restResponse(data, CODE_SUCCESS, MEG_SUCCESS);
+        return restResponse(data, CODE_SUCCESS, message);
     }
 
     public static <T> Response<T> fail(String msg)

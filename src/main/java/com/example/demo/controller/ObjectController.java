@@ -17,22 +17,27 @@ public class ObjectController {
     private IObjectService objectService;
 
     @PostMapping("")
-    public Response update(@RequestBody Object object) {
-        return Response.restResponse(objectService.saveObject(object));
+    public Response createNewObject(@RequestBody Object object) {
+        return Response.success(null, objectService.saveObject(object));
     }
 
     @GetMapping("/{objectId}")
     public Response getObjectById(@PathVariable("objectId") Integer id) {
         Object object = objectService.getObjectById(id);
-        if (object == null) {
-            return Response.restResponse("Object does not exist");
+        if (object != null) {
+            return Response.success(object, "Object found");
         } else {
-            return Response.restResponse(object);
+            return Response.fail("Object does not exist");
         }
     }
 
     @PutMapping("")
     public Response updateObject(@RequestBody Object object) {
-        return Response.restResponse(objectService.updateObject(object));
+        boolean result = objectService.updateObject(object);
+        if (result) {
+            return Response.success(null, "Object update successfully");
+        } else {
+            return Response.fail("Object not found");
+        }
     }
 }

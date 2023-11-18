@@ -14,7 +14,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ObjectServiceImpl implements IObjectService {
 
     private static final Logger logger = LoggerFactory.getLogger(ObjectServiceImpl.class);
@@ -30,7 +32,7 @@ public class ObjectServiceImpl implements IObjectService {
             throw new ServiceException("Object id is empty");
         }
         if (getObjectById(object.getId()) != null) {
-            throw new ServiceException("Object with id %s exist", object.getId());
+            throw new ServiceException(String.format("Object with id %s exist", object.getId()));
         }
         mongoTemplate.insert(object);
         Gson gson = new Gson();
