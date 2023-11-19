@@ -55,25 +55,15 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${spring-boot.version}</version>
-				<configuration>
-					<image>
-						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
-					</image>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<goals>
-							<goal>java</goal>
+							<goal>repackage</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>com.example.demo.SpringDemoApplication</mainClass> <!-- 将 your.package.MainClass 替换为你的主类 -->
+					<finalName>springboot-mongo-demo</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
